@@ -9,6 +9,7 @@ Simplified initial database schema for Nexus Game, managed with Supabase migrati
 | Entity        | Table           | Notes                                      |
 |---------------|-----------------|--------------------------------------------|
 | Users         | `auth.users`    | Managed by Supabase Auth (no custom table) |
+| Profiles      | `profiles`      | Nickname, email, avatar, `is_admin` flag   |
 | Game Levels   | `game_levels`   | Progression tiers with prize and rank      |
 | Questions     | `questions`     | Quiz questions per level                   |
 | Answers       | `answers`       | Options for each question                  |
@@ -19,6 +20,7 @@ Simplified initial database schema for Nexus Game, managed with Supabase migrati
 
 ```mermaid
 erDiagram
+    auth_users ||--o| profiles : has
     auth_users ||--o{ games : owns
     game_levels ||--o{ questions : contains
     game_levels ||--o{ games : achieved_level
@@ -35,7 +37,20 @@ erDiagram
 
 ### Users (`auth.users`)
 
-Users are handled by **Supabase Auth**. Game ownership references `auth.users(id)` directly — no separate public users table.
+Users are handled by **Supabase Auth**. Extended data lives in `profiles`.
+
+---
+
+### Profiles (`profiles`)
+
+| Column       | Type          | Constraints                              |
+|--------------|---------------|------------------------------------------|
+| `id`         | `uuid`        | PK, FK → `auth.users(id)` CASCADE        |
+| `email`      | `text`        | Synced from auth on signup               |
+| `nickname`   | `text`        | Max 50 characters                        |
+| `avatar_url` | `text`        | Public URL to avatar in Storage          |
+| `is_admin`   | `boolean`     | Default `false` — grants admin access    |
+| `updated_at` | `timestamptz` | Last profile update                      |
 
 ---
 
@@ -122,8 +137,18 @@ RLS is enabled on all public tables with a simplified baseline:
 | `game_levels`  | Readable by everyone                                  |
 | `questions`    | Readable by everyone                                  |
 | `answers`      | Readable by everyone                                  |
-| `games`        | Users can view, create, and update their own games    |
+| `games`        | Users can view, create, update, and delete their own games |
 | `user_answers` | Users can view and submit answers for their own games |
+
+### Admin policies (via `is_admin()`)
+
+Users with `profiles.is_admin = true` receive additional RLS policies allowing full CRUD on `game_levels`, `questions`, `answers`, `games`, `user_answers`, and read/update on all `profiles`. User deletion uses the `admin_delete_user` RPC.
+
+Bootstrap first admin:
+
+```sql
+update public.profiles set is_admin = true where email = 'your@email.com';
+```
 
 ## Design Notes
 

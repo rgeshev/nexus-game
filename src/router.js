@@ -20,6 +20,10 @@ const routes = [
     load: () => import('./pages/profile/profile.js'),
   },
   {
+    pattern: /^\/admin\/?$/,
+    load: () => import('./pages/admin/admin.js'),
+  },
+  {
     pattern: /^\/game\/start\/?$/,
     load: () => import('./pages/game-start/game-start.js'),
   },

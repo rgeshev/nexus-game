@@ -1,0 +1,105 @@
+.admin-page {
+  min-height: calc(100vh - 82px);
+}
+
+.admin-tabs {
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.admin-tabs .nav-link {
+  font-family: var(--nx-font-display);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--nx-text-muted);
+  background: transparent;
+  border: 1px solid var(--nx-panel-border);
+  border-radius: 999px;
+  padding: 0.5rem 1.1rem;
+  transition: all 0.2s ease;
+}
+
+.admin-tabs .nav-link:hover {
+  color: var(--nx-cyan);
+  border-color: rgba(0, 246, 255, 0.4);
+}
+
+.admin-tabs .nav-link.active {
+  color: var(--nx-bg);
+  background: var(--nx-magenta);
+  border-color: var(--nx-magenta);
+  box-shadow: var(--nx-glow-magenta);
+}
+
+.admin-toolbar {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 1rem;
+}
+
+.admin-actions {
+  display: flex;
+  gap: 0.4rem;
+  justify-content: flex-end;
+}
+
+.admin-action-btn {
+  width: 34px;
+  height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  border: 1px solid var(--nx-panel-border);
+  background: var(--nx-panel);
+  color: var(--nx-cyan);
+  transition: all 0.2s ease;
+}
+
+.admin-action-btn:hover {
+  border-color: var(--nx-cyan);
+  box-shadow: var(--nx-glow-cyan);
+}
+
+.admin-action-btn.danger {
+  color: var(--nx-magenta);
+}
+
+.admin-action-btn.danger:hover {
+  border-color: var(--nx-magenta);
+  background: var(--nx-magenta);
+  color: #1a0410;
+}
+
+.admin-page .alert-danger {
+  color: var(--nx-magenta);
+  background: rgba(255, 47, 208, 0.08);
+  border: 1px solid rgba(255, 47, 208, 0.35);
+}
+
+.admin-page .alert-success {
+  color: var(--nx-cyan);
+  background: rgba(0, 246, 255, 0.08);
+  border: 1px solid rgba(0, 246, 255, 0.35);
+}
+
+.nx-modal-content {
+  background: var(--nx-panel-strong);
+  border: 1px solid var(--nx-panel-border);
+  border-radius: var(--nx-radius);
+  backdrop-filter: blur(20px);
+  color: var(--nx-text);
+}
+
+.badge-admin {
+  color: var(--nx-magenta);
+  border: 1px solid rgba(255, 47, 208, 0.4);
+  background: rgba(255, 47, 208, 0.08);
+  font-family: var(--nx-font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 0.25rem 0.5rem;
+  border-radius: 999px;
+}

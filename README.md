@@ -14,6 +14,7 @@ Nexus Millions is a browser-based quiz game where authenticated users compete fo
 - Stores game sessions and submitted answers in PostgreSQL
 - Provides a **game archive** to view, resume, or delete past runs
 - Offers a **user profile** page to set a nickname and upload an avatar (max 500 KB)
+- Provides an **admin console** for users with the admin role to manage all game data
 
 ### Who can do what
 
@@ -21,7 +22,8 @@ Nexus Millions is a browser-based quiz game where authenticated users compete fo
 |------|----------------|
 | **Guest** | View home page, register, log in |
 | **Authenticated player** | Access dashboard, start/play/view games, manage game archive, edit profile (nickname + avatar), log out |
-| **Database (RLS)** | Enforces that users only read/write their own games, answers, and profiles; quiz content (levels, questions, answers) is publicly readable |
+| **Admin** | All player capabilities plus full CRUD on games, users, questions, answers, and levels via `/admin` |
+| **Database (RLS)** | Enforces per-user data access; admins bypass restrictions via `is_admin()` policies |
 
 ### Main routes
 
@@ -34,6 +36,7 @@ Nexus Millions is a browser-based quiz game where authenticated users compete fo
 | `/game/start` | Create new game → redirect to play | Authenticated |
 | `/game/{id}/play` | Play or view a game | Authenticated |
 | `/profile` | User profile | Authenticated |
+| `/admin` | Admin console (tabbed CRUD) | Admin only |
 
 ---
 
@@ -130,8 +133,10 @@ erDiagram
 
     profiles {
         uuid id PK_FK
+        text email
         text nickname
         text avatar_url
+        boolean is_admin
         timestamptz updated_at
     }
 
@@ -183,7 +188,7 @@ erDiagram
 | Table | Description |
 |-------|-------------|
 | `auth.users` | Managed by Supabase Auth — no custom users table |
-| `profiles` | Nickname and avatar URL per user |
+| `profiles` | Nickname, email, avatar URL, and `is_admin` flag per user |
 | `game_levels` | Five progression tiers (rank, name, prize) |
 | `questions` | Quiz questions linked to a level |
 | `answers` | Four multiple-choice options per question |
@@ -205,6 +210,17 @@ All schema changes live in `supabase/migrations/`:
 | `20260702120000_initial_game_schema.sql` | Core tables, RLS baseline |
 | `20260703100000_games_delete_policy.sql` | DELETE policy on `games` |
 | `20260703120000_user_profiles.sql` | Profiles table, avatar storage, signup trigger |
+| `20260703140000_admin_role.sql` | Admin role, email on profiles, admin RLS, `admin_delete_user` RPC |
+
+### Admin bootstrap
+
+After migrations are applied, promote your first admin manually in the Supabase SQL Editor:
+
+```sql
+update public.profiles set is_admin = true where email = 'your@email.com';
+```
+
+Only users with `is_admin = true` can access `/admin`. Additional admins can be granted via the **Users** tab in the admin console.
 
 See also [`docs/required-db-schema.md`](docs/required-db-schema.md) for the original schema specification.
 
@@ -309,6 +325,7 @@ nexus-game/
 │   │   ├── auth.js             # Login, register, logout, session helpers
 │   │   ├── games.js            # Game CRUD, answer submission, cash out
 │   │   ├── profile.js          # Profile read/update, avatar upload
+│   │   ├── admin.js            # Admin CRUD for all game assets
 │   │   └── format.js           # Currency, date, duration formatters
 │   │
 │   ├── components/
@@ -323,7 +340,9 @@ nexus-game/
 │       ├── games/              # Game archive table + delete modal
 │       ├── game-start/         # Creates a new game, redirects to play
 │       ├── game/               # Active game / view finished game
-│       └── profile/            # Nickname and avatar management
+│       ├── profile/            # Nickname and avatar management
+│       └── admin/              # Admin console with tabbed CRUD
+│           └── tabs/           # Games, Users, Questions, Answers, Levels
 │
 ├── scripts/
 │   ├── seed.js                 # Database seed runner

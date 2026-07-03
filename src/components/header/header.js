@@ -5,13 +5,17 @@ export function renderHeader() {
   return template;
 }
 
-export function updateHeaderAuth(isLoggedIn) {
+export function updateHeaderAuth(isLoggedIn, isAdmin = false) {
   document.querySelectorAll('[data-auth="guest"]').forEach((el) => {
     el.hidden = isLoggedIn;
   });
 
   document.querySelectorAll('[data-auth="user"]').forEach((el) => {
     el.hidden = !isLoggedIn;
+  });
+
+  document.querySelectorAll('[data-auth="admin"]').forEach((el) => {
+    el.hidden = !isAdmin;
   });
 }
 

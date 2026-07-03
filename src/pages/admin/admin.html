@@ -1,0 +1,71 @@
+<section class="admin-page py-5">
+  <div class="container-fluid px-lg-4">
+    <div class="d-flex flex-wrap justify-content-between align-items-end gap-3 mb-4">
+      <div>
+        <span class="section-eyebrow mb-3 d-inline-flex"><span class="pulse-dot"></span> System Override</span>
+        <h1 class="section-title h2 mb-0">Admin Console</h1>
+      </div>
+    </div>
+
+    <div class="alert alert-danger d-none" data-admin-alert role="alert"></div>
+    <div class="alert alert-success d-none" data-admin-success role="alert"></div>
+
+    <ul class="nav nav-pills admin-tabs mb-4" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button type="button" class="nav-link" data-admin-tab="games" role="tab">Games</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button type="button" class="nav-link" data-admin-tab="users" role="tab">Users</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button type="button" class="nav-link" data-admin-tab="questions" role="tab">Questions</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button type="button" class="nav-link" data-admin-tab="answers" role="tab">Answers</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button type="button" class="nav-link active" data-admin-tab="levels" role="tab">Levels</button>
+      </li>
+    </ul>
+
+    <div class="glass-panel p-4">
+      <div class="text-center py-5" data-admin-tab-loading>
+        <div class="spinner-border text-info" role="status"></div>
+        <p class="text-muted-nx mt-3 mb-0">Loading…</p>
+      </div>
+      <div data-admin-tab-content></div>
+    </div>
+  </div>
+</section>
+
+<div class="modal fade" id="adminDeleteModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content nx-modal-content">
+      <div class="modal-header border-0">
+        <h2 class="modal-title h5 mb-0"><i class="bi bi-exclamation-triangle-fill text-gradient me-2"></i>Confirm Delete</h2>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p class="text-muted-nx mb-0">This action cannot be undone. Proceed?</p>
+      </div>
+      <div class="modal-footer border-0">
+        <button type="button" class="btn-nx-outline" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" class="btn-cta btn-cta-sm" data-admin-confirm-delete>
+          <i class="bi bi-trash3-fill"></i> Delete
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="adminFormModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content nx-modal-content">
+      <div class="modal-header border-0">
+        <h2 class="modal-title h5 mb-0" data-admin-form-title>Form</h2>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" data-admin-form-body></div>
+    </div>
+  </div>
+</div>

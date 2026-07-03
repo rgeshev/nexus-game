@@ -46,3 +46,19 @@ export function onAuthStateChange(callback) {
 export function isAuthenticated(session) {
   return Boolean(session?.user);
 }
+
+export async function checkIsAdmin() {
+  if (!supabase) return false;
+
+  const session = await getSession();
+  if (!session?.user?.id) return false;
+
+  const { data, error } = await supabase
+    .from('profiles')
+    .select('is_admin')
+    .eq('id', session.user.id)
+    .maybeSingle();
+
+  if (error) return false;
+  return Boolean(data?.is_admin);
+}

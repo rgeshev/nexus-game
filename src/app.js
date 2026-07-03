@@ -2,16 +2,18 @@ import { renderHeader, initHeader, updateHeaderAuth } from './components/header/
 import { renderFooter, initFooter } from './components/footer/footer.js';
 import { renderBackgroundFx, initBackgroundFx } from './components/background-fx/background-fx.js';
 import { matchRoute, navigate } from './router.js';
-import { getSession, onAuthStateChange, signOut, isAuthenticated } from './lib/auth.js';
+import { getSession, onAuthStateChange, signOut, isAuthenticated, checkIsAdmin } from './lib/auth.js';
 
 const PROTECTED_ROUTES = [
   /^\/dashboard\/?$/,
   /^\/games\/?$/,
   /^\/profile\/?$/,
+  /^\/admin\/?$/,
   /^\/game\/start\/?$/,
   /^\/game\/[^/]+\/play\/?$/,
 ];
 const GUEST_ONLY_ROUTES = [/^\/login\/?$/];
+const ADMIN_ONLY_ROUTES = [/^\/admin\/?$/];
 
 function updateActiveNav(pathname) {
   document.querySelectorAll('[data-nav]').forEach((link) => {
@@ -32,11 +34,16 @@ function isGuestOnlyRoute(pathname) {
   return GUEST_ONLY_ROUTES.some((pattern) => pattern.test(pathname));
 }
 
+function isAdminOnlyRoute(pathname) {
+  return ADMIN_ONLY_ROUTES.some((pattern) => pattern.test(pathname));
+}
+
 export async function renderPage(pathname) {
   const session = await getSession();
   const loggedIn = isAuthenticated(session);
+  const isAdmin = loggedIn ? await checkIsAdmin() : false;
 
-  updateHeaderAuth(loggedIn);
+  updateHeaderAuth(loggedIn, isAdmin);
 
   if (isProtectedRoute(pathname) && !loggedIn) {
     navigate('/login');
@@ -44,6 +51,11 @@ export async function renderPage(pathname) {
   }
 
   if (isGuestOnlyRoute(pathname) && loggedIn) {
+    navigate('/dashboard');
+    return;
+  }
+
+  if (isAdminOnlyRoute(pathname) && !isAdmin) {
     navigate('/dashboard');
     return;
   }
@@ -109,8 +121,10 @@ export function initApp() {
     navigate(link.getAttribute('href'));
   });
 
-  onAuthStateChange((_event, session) => {
-    updateHeaderAuth(isAuthenticated(session));
+  onAuthStateChange(async (_event, session) => {
+    const loggedIn = isAuthenticated(session);
+    const isAdmin = loggedIn ? await checkIsAdmin() : false;
+    updateHeaderAuth(loggedIn, isAdmin);
     renderPage(window.location.pathname);
   });
 
