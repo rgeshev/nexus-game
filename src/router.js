@@ -16,6 +16,10 @@ const routes = [
     load: () => import('./pages/games/games.js'),
   },
   {
+    pattern: /^\/profile\/?$/,
+    load: () => import('./pages/profile/profile.js'),
+  },
+  {
     pattern: /^\/game\/start\/?$/,
     load: () => import('./pages/game-start/game-start.js'),
   },

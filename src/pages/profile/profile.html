@@ -1,0 +1,73 @@
+<section class="profile-page py-5">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-7">
+        <div class="text-center mb-4">
+          <span class="section-eyebrow"><span class="pulse-dot"></span> Operator Identity</span>
+        </div>
+
+        <div class="glass-panel-strong profile-card">
+          <div class="text-center py-4" data-profile-loading>
+            <div class="spinner-border text-info" role="status"></div>
+            <p class="text-muted-nx mt-3 mb-0">Loading profile…</p>
+          </div>
+
+          <div class="d-none" data-profile-content>
+            <div class="alert alert-danger d-none" data-profile-alert role="alert"></div>
+            <div class="alert alert-success d-none" data-profile-success role="alert"></div>
+
+            <div class="text-center mb-4">
+              <div class="profile-avatar-wrap mx-auto">
+                <img src="" alt="Your avatar" class="profile-avatar d-none" data-avatar-img />
+                <div class="profile-avatar-placeholder" data-avatar-placeholder>
+                  <i class="bi bi-person-fill"></i>
+                </div>
+              </div>
+              <p class="text-muted-nx small mt-2 mb-0" data-profile-email></p>
+            </div>
+
+            <div class="mb-4">
+              <label class="nx-form-label mb-2">Avatar</label>
+              <p class="text-muted-nx small mb-3">JPEG, PNG, GIF, or WebP — max 500 KB</p>
+              <div class="d-flex flex-wrap gap-2">
+                <label class="btn-nx-outline mb-0" for="avatar-input">
+                  <i class="bi bi-upload"></i> Upload Avatar
+                </label>
+                <input
+                  type="file"
+                  id="avatar-input"
+                  class="d-none"
+                  accept="image/jpeg,image/png,image/gif,image/webp"
+                />
+                <button type="button" class="btn-nx-outline d-none" data-remove-avatar>
+                  <i class="bi bi-trash3"></i> Remove
+                </button>
+              </div>
+            </div>
+
+            <form data-nickname-form novalidate>
+              <div class="mb-4">
+                <label class="nx-form-label mb-2" for="profile-nickname">Nickname</label>
+                <input
+                  type="text"
+                  class="form-control nx-input"
+                  id="profile-nickname"
+                  name="nickname"
+                  placeholder="Enter your operator name"
+                  maxlength="50"
+                  autocomplete="nickname"
+                  required
+                />
+                <p class="text-muted-nx small mt-2 mb-0">2–50 characters</p>
+              </div>
+
+              <button type="submit" class="btn-cta w-100 justify-content-center" data-save-profile>
+                <i class="bi bi-check2-circle"></i> Save Profile
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

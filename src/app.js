@@ -7,6 +7,7 @@ import { getSession, onAuthStateChange, signOut, isAuthenticated } from './lib/a
 const PROTECTED_ROUTES = [
   /^\/dashboard\/?$/,
   /^\/games\/?$/,
+  /^\/profile\/?$/,
   /^\/game\/start\/?$/,
   /^\/game\/[^/]+\/play\/?$/,
 ];

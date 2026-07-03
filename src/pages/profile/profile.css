@@ -1,0 +1,57 @@
+.profile-page {
+  min-height: calc(100vh - 82px);
+}
+
+.profile-card {
+  padding: 2.5rem;
+}
+
+.profile-avatar-wrap {
+  position: relative;
+  width: 120px;
+  height: 120px;
+}
+
+.profile-avatar,
+.profile-avatar-placeholder {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 2px solid var(--nx-panel-border);
+  object-fit: cover;
+}
+
+.profile-avatar-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 246, 255, 0.08);
+  color: var(--nx-cyan);
+  font-size: 3rem;
+  box-shadow: var(--nx-glow-cyan);
+}
+
+.profile-card .alert {
+  font-size: 0.9rem;
+  border-radius: var(--nx-radius-sm);
+}
+
+.profile-card .alert-danger {
+  color: var(--nx-magenta);
+  background: rgba(255, 47, 208, 0.08);
+  border: 1px solid rgba(255, 47, 208, 0.35);
+}
+
+.profile-card .alert-success {
+  color: var(--nx-cyan);
+  background: rgba(0, 246, 255, 0.08);
+  border: 1px solid rgba(0, 246, 255, 0.35);
+}
+
+.profile-card .btn-cta {
+  animation: none;
+}
+
+[data-profile-content] label.btn-nx-outline {
+  cursor: pointer;
+}
