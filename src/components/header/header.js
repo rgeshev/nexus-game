@@ -5,6 +5,16 @@ export function renderHeader() {
   return template;
 }
 
+export function updateHeaderAuth(isLoggedIn) {
+  document.querySelectorAll('[data-auth="guest"]').forEach((el) => {
+    el.hidden = isLoggedIn;
+  });
+
+  document.querySelectorAll('[data-auth="user"]').forEach((el) => {
+    el.hidden = !isLoggedIn;
+  });
+}
+
 export function initHeader() {
   const collapseEl = document.getElementById('mainNav');
   if (!collapseEl) return;

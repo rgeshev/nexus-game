@@ -23,6 +23,60 @@
   box-shadow: var(--nx-glow-cyan);
 }
 
-.login-form .btn-cta {
+.login-form .btn-cta,
+.auth-form .btn-cta {
   animation: none;
+}
+
+.auth-tabs {
+  gap: 0.5rem;
+}
+
+.auth-tabs .nav-link {
+  font-family: var(--nx-font-display);
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--nx-text-muted);
+  background: transparent;
+  border: 1px solid var(--nx-panel-border);
+  border-radius: 999px;
+  padding: 0.5rem 1.25rem;
+  transition: all 0.2s ease;
+}
+
+.auth-tabs .nav-link:hover {
+  color: var(--nx-cyan);
+  border-color: rgba(0, 246, 255, 0.4);
+}
+
+.auth-tabs .nav-link.active {
+  color: var(--nx-bg);
+  background: var(--nx-cyan);
+  border-color: var(--nx-cyan);
+  box-shadow: var(--nx-glow-cyan);
+}
+
+.auth-alert {
+  font-size: 0.9rem;
+  border-radius: var(--nx-radius-sm);
+  margin-bottom: 1rem;
+}
+
+.auth-alert.alert-success {
+  color: var(--nx-cyan);
+  background: rgba(0, 246, 255, 0.08);
+  border: 1px solid rgba(0, 246, 255, 0.35);
+}
+
+.auth-alert.alert-danger {
+  color: var(--nx-magenta);
+  background: rgba(255, 47, 208, 0.08);
+  border: 1px solid rgba(255, 47, 208, 0.35);
+}
+
+.auth-form [data-auth-submit]:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+  transform: none;
 }

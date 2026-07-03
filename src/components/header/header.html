@@ -22,16 +22,21 @@
         <li class="nav-item">
           <a class="nav-link app-nav-link" href="/" data-nav><i class="bi bi-house-door"></i> Home</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" data-auth="user" hidden>
           <a class="nav-link app-nav-link" href="/dashboard" data-nav><i class="bi bi-speedometer2"></i> Dashboard</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" data-auth="user" hidden>
           <a class="nav-link app-nav-link" href="/games/demo/" data-nav><i class="bi bi-joystick"></i> Play</a>
         </li>
-        <li class="nav-item ms-lg-2">
+        <li class="nav-item ms-lg-2" data-auth="guest">
           <a class="btn-cta btn-cta-sm" href="/login" data-nav>
             <i class="bi bi-box-arrow-in-right"></i> Login
           </a>
+        </li>
+        <li class="nav-item ms-lg-2" data-auth="user" hidden>
+          <button type="button" class="btn-nx-outline btn-logout" data-logout>
+            <i class="bi bi-box-arrow-right"></i> Logout
+          </button>
         </li>
       </ul>
     </div>

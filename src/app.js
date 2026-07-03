@@ -1,7 +1,11 @@
-import { renderHeader, initHeader } from './components/header/header.js';
+import { renderHeader, initHeader, updateHeaderAuth } from './components/header/header.js';
 import { renderFooter, initFooter } from './components/footer/footer.js';
 import { renderBackgroundFx, initBackgroundFx } from './components/background-fx/background-fx.js';
 import { matchRoute, navigate } from './router.js';
+import { getSession, onAuthStateChange, signOut, isAuthenticated } from './lib/auth.js';
+
+const PROTECTED_ROUTES = [/^\/dashboard\/?$/];
+const GUEST_ONLY_ROUTES = [/^\/login\/?$/];
 
 function updateActiveNav(pathname) {
   document.querySelectorAll('[data-nav]').forEach((link) => {
@@ -14,7 +18,30 @@ function updateActiveNav(pathname) {
   });
 }
 
+function isProtectedRoute(pathname) {
+  return PROTECTED_ROUTES.some((pattern) => pattern.test(pathname));
+}
+
+function isGuestOnlyRoute(pathname) {
+  return GUEST_ONLY_ROUTES.some((pattern) => pattern.test(pathname));
+}
+
 export async function renderPage(pathname) {
+  const session = await getSession();
+  const loggedIn = isAuthenticated(session);
+
+  updateHeaderAuth(loggedIn);
+
+  if (isProtectedRoute(pathname) && !loggedIn) {
+    navigate('/login');
+    return;
+  }
+
+  if (isGuestOnlyRoute(pathname) && loggedIn) {
+    navigate('/dashboard');
+    return;
+  }
+
   const contentEl = document.getElementById('page-content');
   const matched = matchRoute(pathname);
 
@@ -57,12 +84,28 @@ export function initApp() {
   initHeader();
   initFooter();
 
-  document.addEventListener('click', (event) => {
+  document.addEventListener('click', async (event) => {
+    const logoutBtn = event.target.closest('[data-logout]');
+    if (logoutBtn) {
+      event.preventDefault();
+      try {
+        await signOut();
+      } catch (error) {
+        console.error('Logout failed:', error.message);
+      }
+      return;
+    }
+
     const link = event.target.closest('[data-nav]');
     if (!link) return;
 
     event.preventDefault();
     navigate(link.getAttribute('href'));
+  });
+
+  onAuthStateChange((_event, session) => {
+    updateHeaderAuth(isAuthenticated(session));
+    renderPage(window.location.pathname);
   });
 
   window.addEventListener('popstate', () => {
