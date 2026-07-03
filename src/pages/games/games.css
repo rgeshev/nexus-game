@@ -1,0 +1,47 @@
+.games-page {
+  min-height: calc(100vh - 82px);
+}
+
+.game-actions {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: flex-end;
+}
+
+.game-action-btn {
+  width: 38px;
+  height: 38px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  border: 1px solid var(--nx-panel-border);
+  background: var(--nx-panel);
+  color: var(--nx-cyan);
+  transition: all 0.2s ease;
+}
+
+.game-action-btn:hover {
+  border-color: var(--nx-cyan);
+  box-shadow: var(--nx-glow-cyan);
+  color: var(--nx-cyan);
+}
+
+.game-action-btn.danger {
+  color: var(--nx-magenta);
+}
+
+.game-action-btn.danger:hover {
+  border-color: var(--nx-magenta);
+  background: var(--nx-magenta);
+  color: #1a0410;
+  box-shadow: var(--nx-glow-magenta);
+}
+
+.nx-modal-content {
+  background: var(--nx-panel-strong);
+  border: 1px solid var(--nx-panel-border);
+  border-radius: var(--nx-radius);
+  backdrop-filter: blur(20px);
+  color: var(--nx-text);
+}

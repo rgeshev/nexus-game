@@ -4,7 +4,12 @@ import { renderBackgroundFx, initBackgroundFx } from './components/background-fx
 import { matchRoute, navigate } from './router.js';
 import { getSession, onAuthStateChange, signOut, isAuthenticated } from './lib/auth.js';
 
-const PROTECTED_ROUTES = [/^\/dashboard\/?$/];
+const PROTECTED_ROUTES = [
+  /^\/dashboard\/?$/,
+  /^\/games\/?$/,
+  /^\/game\/start\/?$/,
+  /^\/game\/[^/]+\/play\/?$/,
+];
 const GUEST_ONLY_ROUTES = [/^\/login\/?$/];
 
 function updateActiveNav(pathname) {

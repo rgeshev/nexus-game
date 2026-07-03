@@ -12,7 +12,15 @@ const routes = [
     load: () => import('./pages/dashboard/dashboard.js'),
   },
   {
-    pattern: /^\/games\/([^/]+)\/?$/,
+    pattern: /^\/games\/?$/,
+    load: () => import('./pages/games/games.js'),
+  },
+  {
+    pattern: /^\/game\/start\/?$/,
+    load: () => import('./pages/game-start/game-start.js'),
+  },
+  {
+    pattern: /^\/game\/([^/]+)\/play\/?$/,
     load: () => import('./pages/game/game.js'),
     params: ['id'],
   },
