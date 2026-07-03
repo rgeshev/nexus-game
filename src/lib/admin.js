@@ -102,7 +102,7 @@ export async function setQuestionTrueAnswer(questionId, answerId) {
 export async function listAnswers(questionId = null) {
   let query = requireClient()
     .from('answers')
-    .select('id, value, question_id, question:questions(value)')
+    .select('id, value, question_id, question:questions!answers_question_id_fkey(value)')
     .order('question_id');
 
   if (questionId) query = query.eq('question_id', questionId);
