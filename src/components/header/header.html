@@ -1,8 +1,13 @@
-<header class="app-header border-bottom bg-body-tertiary">
-  <nav class="navbar navbar-expand-lg container">
-    <a class="navbar-brand fw-semibold" href="/" data-nav>Nexus Game</a>
+<header class="app-header sticky-top">
+  <nav class="navbar navbar-expand-lg container py-3">
+    <a class="navbar-brand app-brand" href="/" data-nav>
+      <span class="app-brand-icon"><i class="bi bi-cpu"></i></span>
+      <span class="app-brand-text">
+        NEXUS<span class="text-gradient">MILLIONS</span>
+      </span>
+    </a>
     <button
-      class="navbar-toggler"
+      class="navbar-toggler app-nav-toggler"
       type="button"
       data-bs-toggle="collapse"
       data-bs-target="#mainNav"
@@ -10,21 +15,23 @@
       aria-expanded="false"
       aria-label="Toggle navigation"
     >
-      <span class="navbar-toggler-icon"></span>
+      <i class="bi bi-list"></i>
     </button>
     <div class="collapse navbar-collapse" id="mainNav">
-      <ul class="navbar-nav ms-auto">
+      <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
         <li class="nav-item">
-          <a class="nav-link" href="/" data-nav>Home</a>
+          <a class="nav-link app-nav-link" href="/" data-nav><i class="bi bi-house-door"></i> Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/login" data-nav>Login</a>
+          <a class="nav-link app-nav-link" href="/dashboard" data-nav><i class="bi bi-speedometer2"></i> Dashboard</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/dashboard" data-nav>Dashboard</a>
+          <a class="nav-link app-nav-link" href="/games/demo/" data-nav><i class="bi bi-joystick"></i> Play</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/games/demo/" data-nav>Demo Game</a>
+        <li class="nav-item ms-lg-2">
+          <a class="btn-cta btn-cta-sm" href="/login" data-nav>
+            <i class="bi bi-box-arrow-in-right"></i> Login
+          </a>
         </li>
       </ul>
     </div>

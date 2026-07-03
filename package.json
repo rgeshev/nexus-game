@@ -10,7 +10,8 @@
     "seed": "node scripts/seed.js"
   },
   "dependencies": {
-    "bootstrap": "^5.3.8"
+    "bootstrap": "^5.3.8",
+    "bootstrap-icons": "^1.13.1"
   },
   "devDependencies": {
     "@supabase/supabase-js": "^2.49.8",

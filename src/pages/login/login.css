@@ -1,3 +1,28 @@
 .login-page {
-  min-height: 40vh;
+  min-height: calc(100vh - 82px);
+  display: flex;
+  align-items: center;
+  padding: 3rem 0;
+}
+
+.login-card {
+  padding: 2.5rem;
+}
+
+.login-icon {
+  width: 64px;
+  height: 64px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(0, 246, 255, 0.08);
+  border: 1px solid var(--nx-panel-border);
+  color: var(--nx-cyan);
+  font-size: 1.75rem;
+  box-shadow: var(--nx-glow-cyan);
+}
+
+.login-form .btn-cta {
+  animation: none;
 }

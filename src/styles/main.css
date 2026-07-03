@@ -1,15 +1,434 @@
+/* ==========================================================================
+   Nexus Millions — cyberpunk design system
+   ========================================================================== */
+
+:root {
+  --nx-bg: #05070f;
+  --nx-bg-alt: #0a0f21;
+  --nx-panel: rgba(12, 17, 36, 0.68);
+  --nx-panel-strong: rgba(10, 14, 30, 0.9);
+  --nx-panel-border: rgba(0, 246, 255, 0.22);
+
+  --nx-cyan: #00f6ff;
+  --nx-magenta: #ff2fd0;
+  --nx-gold: #ffcc33;
+  --nx-violet: #8a5cff;
+
+  --nx-text: #eaf6ff;
+  --nx-text-muted: #8ea0c7;
+
+  --nx-font-display: 'Orbitron', 'Segoe UI', sans-serif;
+  --nx-font-body: 'Rajdhani', 'Segoe UI', sans-serif;
+  --nx-font-mono: 'Share Tech Mono', monospace;
+
+  --nx-radius: 16px;
+  --nx-radius-sm: 10px;
+
+  --nx-glow-cyan: 0 0 12px rgba(0, 246, 255, 0.65), 0 0 32px rgba(0, 246, 255, 0.22);
+  --nx-glow-magenta: 0 0 12px rgba(255, 47, 208, 0.65), 0 0 32px rgba(255, 47, 208, 0.22);
+  --nx-glow-gold: 0 0 12px rgba(255, 204, 51, 0.65), 0 0 32px rgba(255, 204, 51, 0.22);
+  --nx-glow-violet: 0 0 12px rgba(138, 92, 255, 0.6), 0 0 32px rgba(138, 92, 255, 0.2);
+}
+
+/* Base
+   ========================================================================== */
+
+html,
+body {
+  background: var(--nx-bg);
+}
+
 body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  color: var(--nx-text);
+  font-family: var(--nx-font-body);
+  font-size: 1.05rem;
+  position: relative;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% -10%, rgba(0, 246, 255, 0.12), transparent 60%),
+    radial-gradient(ellipse 60% 50% at 100% 100%, rgba(255, 47, 208, 0.1), transparent 60%),
+    radial-gradient(ellipse 60% 50% at 0% 100%, rgba(138, 92, 255, 0.1), transparent 60%);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--nx-font-display);
+  letter-spacing: 0.02em;
+}
+
+a {
+  color: var(--nx-cyan);
+}
+
+::selection {
+  background: var(--nx-cyan);
+  color: #00131a;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--nx-bg-alt);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--nx-cyan), var(--nx-violet));
+  border-radius: 10px;
 }
 
 #app {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  position: relative;
+  z-index: 1;
 }
 
 #page-content {
   flex: 1;
+}
+
+/* Layout helpers
+   ========================================================================== */
+
+.section-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--nx-font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--nx-cyan);
+  border: 1px solid var(--nx-panel-border);
+  background: var(--nx-panel);
+  padding: 0.4rem 0.9rem;
+  border-radius: 999px;
+  backdrop-filter: blur(8px);
+}
+
+.pulse-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--nx-cyan);
+  box-shadow: var(--nx-glow-cyan);
+  animation: nx-flicker 1.6s ease-in-out infinite;
+  flex-shrink: 0;
+}
+
+.section-title {
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 0.5rem;
+}
+
+.section-subtitle {
+  color: var(--nx-text-muted);
+  font-size: 1.05rem;
+  max-width: 620px;
+}
+
+.text-gradient {
+  background: linear-gradient(90deg, var(--nx-cyan), var(--nx-violet) 50%, var(--nx-magenta));
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: nx-gradient-shift 6s linear infinite;
+}
+
+.text-muted-nx {
+  color: var(--nx-text-muted) !important;
+}
+
+/* Glass panels
+   ========================================================================== */
+
+.glass-panel {
+  background: var(--nx-panel);
+  border: 1px solid var(--nx-panel-border);
+  border-radius: var(--nx-radius);
+  backdrop-filter: blur(14px);
+  box-shadow: 0 0 40px rgba(0, 246, 255, 0.05), inset 0 0 60px rgba(0, 246, 255, 0.03);
+}
+
+.glass-panel-strong {
+  background: var(--nx-panel-strong);
+  border: 1px solid var(--nx-panel-border);
+  border-radius: var(--nx-radius);
+  backdrop-filter: blur(18px);
+  box-shadow: 0 0 50px rgba(0, 246, 255, 0.08), inset 0 0 60px rgba(0, 246, 255, 0.04);
+}
+
+.nx-card {
+  background: var(--nx-panel);
+  border: 1px solid var(--nx-panel-border);
+  border-radius: var(--nx-radius);
+  backdrop-filter: blur(14px);
+  padding: 1.75rem;
+  height: 100%;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.nx-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(0, 246, 255, 0.5);
+  box-shadow: var(--nx-glow-cyan);
+}
+
+.nx-card-icon {
+  width: 56px;
+  height: 56px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--nx-radius-sm);
+  background: rgba(0, 246, 255, 0.08);
+  border: 1px solid var(--nx-panel-border);
+  color: var(--nx-cyan);
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+/* Buttons
+   ========================================================================== */
+
+.btn-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  font-family: var(--nx-font-display);
+  font-weight: 700;
+  font-size: 1.1rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #04121a;
+  background: linear-gradient(90deg, var(--nx-cyan), var(--nx-violet) 55%, var(--nx-magenta));
+  background-size: 200% auto;
+  border: none;
+  border-radius: 999px;
+  padding: 1rem 2.25rem;
+  text-decoration: none;
+  box-shadow: 0 0 24px rgba(0, 246, 255, 0.45), 0 0 60px rgba(255, 47, 208, 0.2);
+  animation: nx-cta-pulse 2.6s ease-in-out infinite;
+  transition: transform 0.2s ease, background-position 0.4s ease, box-shadow 0.2s ease;
+}
+
+.btn-cta:hover,
+.btn-cta:focus-visible {
+  color: #04121a;
+  transform: translateY(-3px) scale(1.02);
+  background-position: 100% 0;
+  box-shadow: 0 0 32px rgba(0, 246, 255, 0.6), 0 0 80px rgba(255, 47, 208, 0.3);
+}
+
+.btn-cta.btn-cta-sm {
+  font-size: 0.85rem;
+  padding: 0.65rem 1.5rem;
+}
+
+.btn-nx-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--nx-font-display);
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--nx-cyan);
+  background: transparent;
+  border: 1px solid var(--nx-panel-border);
+  border-radius: 999px;
+  padding: 0.65rem 1.4rem;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.btn-nx-outline:hover {
+  color: var(--nx-bg);
+  background: var(--nx-cyan);
+  border-color: var(--nx-cyan);
+  box-shadow: var(--nx-glow-cyan);
+}
+
+/* Form controls
+   ========================================================================== */
+
+.nx-form-label {
+  font-family: var(--nx-font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--nx-text-muted);
+}
+
+.nx-input {
+  background: rgba(5, 8, 20, 0.7) !important;
+  border: 1px solid var(--nx-panel-border) !important;
+  color: var(--nx-text) !important;
+  border-radius: var(--nx-radius-sm) !important;
+  padding: 0.7rem 1rem !important;
+}
+
+.nx-input::placeholder {
+  color: rgba(142, 160, 199, 0.5);
+}
+
+.nx-input:focus {
+  border-color: var(--nx-cyan) !important;
+  box-shadow: var(--nx-glow-cyan) !important;
+  outline: none;
+}
+
+/* Shared widgets: stat chips & prize ladder
+   (used across home, dashboard and game pages)
+   ========================================================================== */
+
+.hero-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 1.25rem 0.75rem;
+  border: 1px solid var(--nx-panel-border);
+  border-radius: var(--nx-radius-sm);
+  background: var(--nx-panel);
+  backdrop-filter: blur(10px);
+}
+
+.hero-stat i {
+  color: var(--nx-cyan);
+  font-size: 1.4rem;
+}
+
+.hero-stat-value {
+  font-family: var(--nx-font-display);
+  font-weight: 700;
+  font-size: 1.3rem;
+  color: var(--nx-text);
+}
+
+.hero-stat-label {
+  font-family: var(--nx-font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--nx-text-muted);
+}
+
+.prize-ladder {
+  max-width: 560px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.ladder-rung {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.85rem 1.5rem;
+  border: 1px solid var(--nx-panel-border);
+  border-radius: var(--nx-radius-sm);
+  background: var(--nx-panel);
+  backdrop-filter: blur(10px);
+  font-family: var(--nx-font-display);
+}
+
+.ladder-rank {
+  font-size: 0.85rem;
+  color: var(--nx-text-muted);
+  width: 2.5rem;
+}
+
+.ladder-name {
+  flex: 1;
+  text-align: left;
+  font-size: 0.95rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.ladder-prize {
+  color: var(--nx-cyan);
+  font-weight: 700;
+}
+
+.ladder-rung-gold {
+  border-color: rgba(255, 204, 51, 0.5);
+  box-shadow: var(--nx-glow-gold);
+  background: rgba(255, 204, 51, 0.06);
+}
+
+.ladder-rung-gold .ladder-prize {
+  color: var(--nx-gold);
+}
+
+.ladder-rung-current {
+  border-color: rgba(0, 246, 255, 0.5);
+  box-shadow: var(--nx-glow-cyan);
+}
+
+.prize-ladder-compact .ladder-rung {
+  padding: 0.6rem 1rem;
+  font-size: 0.85rem;
+}
+
+/* Keyframes
+   ========================================================================== */
+
+@keyframes nx-flicker {
+  0%,
+  100% {
+    opacity: 1;
+    box-shadow: var(--nx-glow-cyan);
+  }
+  50% {
+    opacity: 0.35;
+    box-shadow: none;
+  }
+}
+
+@keyframes nx-cta-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 24px rgba(0, 246, 255, 0.45), 0 0 60px rgba(255, 47, 208, 0.18);
+  }
+  50% {
+    box-shadow: 0 0 34px rgba(0, 246, 255, 0.7), 0 0 90px rgba(255, 47, 208, 0.35);
+  }
+}
+
+@keyframes nx-gradient-shift {
+  to {
+    background-position: 200% center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pulse-dot,
+  .btn-cta,
+  .text-gradient {
+    animation: none !important;
+  }
 }

@@ -1,3 +1,45 @@
-.home-page {
-  min-height: 40vh;
+.hero-section {
+  min-height: calc(100vh - 82px);
+  display: flex;
+  align-items: center;
+  padding: 4rem 0;
+}
+
+.hero-inner {
+  max-width: 760px;
+}
+
+.hero-title {
+  font-size: clamp(3.5rem, 12vw, 7.5rem);
+  font-weight: 900;
+  line-height: 0.95;
+  margin: 1.5rem 0 0.25rem;
+  letter-spacing: 0.03em;
+}
+
+.hero-subtitle {
+  font-family: var(--nx-font-display);
+  font-size: clamp(1rem, 2.4vw, 1.5rem);
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--nx-text-muted);
+  margin-bottom: 1.5rem;
+}
+
+.hero-description {
+  max-width: 560px;
+  color: var(--nx-text-muted);
+  font-size: 1.15rem;
+  margin-bottom: 2.25rem;
+}
+
+.btn-cta-lg {
+  font-size: 1.25rem;
+  padding: 1.15rem 2.75rem;
+}
+
+/* Final CTA */
+
+.final-cta {
+  position: relative;
 }

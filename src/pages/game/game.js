@@ -8,8 +8,14 @@ export function render() {
 }
 
 export function init({ id } = {}) {
-  const idEl = document.querySelector('[data-game-id]');
-  if (idEl) {
-    idEl.textContent = id ?? '';
-  }
+  document.querySelectorAll('[data-game-id]').forEach((el) => {
+    el.textContent = id ?? '';
+  });
+
+  document.querySelectorAll('.answer-option').forEach((button) => {
+    button.addEventListener('click', () => {
+      document.querySelectorAll('.answer-option').forEach((btn) => btn.classList.remove('active'));
+      button.classList.add('active');
+    });
+  });
 }

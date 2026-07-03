@@ -1,16 +1,19 @@
 import template from './header.html?raw';
 import './header.css';
-import { navigate } from '../../router.js';
 
 export function renderHeader() {
   return template;
 }
 
 export function initHeader() {
-  document.querySelectorAll('[data-nav]').forEach((link) => {
-    link.addEventListener('click', (event) => {
-      event.preventDefault();
-      navigate(link.getAttribute('href'));
+  const collapseEl = document.getElementById('mainNav');
+  if (!collapseEl) return;
+
+  collapseEl.querySelectorAll('[data-nav]').forEach((link) => {
+    link.addEventListener('click', () => {
+      if (collapseEl.classList.contains('show')) {
+        window.bootstrap?.Collapse.getOrCreateInstance(collapseEl).hide();
+      }
     });
   });
 }

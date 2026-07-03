@@ -8,5 +8,8 @@ export function render() {
 }
 
 export function init() {
-  // Reserved for login form behavior.
+  const form = document.querySelector('.login-form');
+  form?.addEventListener('submit', (event) => {
+    event.preventDefault();
+  });
 }
